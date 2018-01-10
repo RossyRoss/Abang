@@ -8,6 +8,10 @@ tools:context="capstone.abang.com.Car_Owner.car_owner">
 
 <!-- TODO: Update blank fragment layout -->
 
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOG OUT"
+        android:id="@+id/btnLogout"/>
 
 </FrameLayout>

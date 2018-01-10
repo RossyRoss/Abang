@@ -44,11 +44,12 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         progressDialog = new ProgressDialog(this);
 
-        //Firebase things
+        //Firebase
         mAuth = FirebaseAuth.getInstance();
 
         //Methods
         setInit();
+
     }
 
     @Override
@@ -56,8 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        Intent homeIntent = new Intent(getApplicationContext(), car_owner.class);
-        startActivity(homeIntent);
+        if(currentUser != null) {
+            Intent intent = new Intent(this, car_owner.class);
+            startActivity(intent);
+        }
     }
 
     private void setInit() {
@@ -90,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                                         toastMethod("Authentication failed!");
+                                        progressDialog.hide();
                                     }
                                 }
                             });

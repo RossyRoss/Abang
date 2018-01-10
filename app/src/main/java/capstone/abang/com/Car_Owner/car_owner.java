@@ -1,21 +1,28 @@
 package capstone.abang.com.Car_Owner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import capstone.abang.com.BottomNavigationViewHelper;
+import capstone.abang.com.LoginActivity;
 import capstone.abang.com.R;
 
 
 public class car_owner extends AppCompatActivity {
 
     private static final String TAG = car_owner.class.getSimpleName();
-
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -52,6 +59,7 @@ public class car_owner extends AppCompatActivity {
         setContentView(R.layout.activity_car_owner);
 
 
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -59,6 +67,7 @@ public class car_owner extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.content,new HomeFragment()).commit();
+
     }
 
 }
