@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#07232f"
-    tools:context="capstone.abang.com.RegisterContinuationActivity">
+    tools:context="capstone.abang.com.Register.RegisterContinuationActivity">
 
     <include layout="@layout/layout_toolbar"/>
 

@@ -1,4 +1,4 @@
-package capstone.abang.com;
+package capstone.abang.com.Register;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import capstone.abang.com.R;
+import capstone.abang.com.Register.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

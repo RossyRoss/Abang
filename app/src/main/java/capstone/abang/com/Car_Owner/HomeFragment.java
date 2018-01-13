@@ -15,7 +15,7 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import capstone.abang.com.LoginActivity;
+import capstone.abang.com.Register.LoginActivity;
 import capstone.abang.com.R;
 
 /**

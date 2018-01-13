@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-tools:context="capstone.abang.com.RegisterActivity"
+tools:context="capstone.abang.com.Register.RegisterActivity"
 android:background="#07232f">
 
 <include layout="@layout/layout_toolbar" />

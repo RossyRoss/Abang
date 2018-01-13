@@ -80,6 +80,9 @@ public class ProfileFragment extends Fragment {
         UHFile uhFile = uSettings.getUhFile();
 
         textViewName.setText(udFile.getUDFullname());
+        textViewAddress.setText(udFile.getUDAddr());
+        textViewContact.setText(udFile.getUDContact());
+        textViewEmail.setText(udFile.getUDEmail());
     }
 
 

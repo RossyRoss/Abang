@@ -1,4 +1,4 @@
-package capstone.abang.com;
+package capstone.abang.com.Register;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import capstone.abang.com.R;
 import capstone.abang.com.Utils.Utility;
 
 public class RegisterActivity extends AppCompatActivity {

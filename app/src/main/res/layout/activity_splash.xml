@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="#081e27"
-    tools:context="capstone.abang.com.SplashActivity">
+    tools:context="capstone.abang.com.Register.SplashActivity">
 
     <ImageView
         android:layout_width="250dp"

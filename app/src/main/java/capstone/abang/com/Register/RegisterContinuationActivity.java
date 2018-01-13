@@ -1,4 +1,4 @@
-package capstone.abang.com;
+package capstone.abang.com.Register;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -37,6 +37,7 @@ import com.google.firebase.storage.UploadTask;
 import capstone.abang.com.Car_Owner.car_owner;
 import capstone.abang.com.Models.UDFile;
 import capstone.abang.com.Models.UHFile;
+import capstone.abang.com.R;
 import capstone.abang.com.Utils.Utility;
 
 public class RegisterContinuationActivity extends AppCompatActivity {
