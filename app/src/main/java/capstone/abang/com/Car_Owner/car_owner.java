@@ -1,20 +1,16 @@
 package capstone.abang.com.Car_Owner;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-import capstone.abang.com.BottomNavigationViewHelper;
-import capstone.abang.com.LoginActivity;
+import capstone.abang.com.Utils.BottomNavigationViewHelper;
 import capstone.abang.com.R;
 
 
@@ -45,7 +41,7 @@ public class car_owner extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_profile:
-
+                    transaction.replace(R.id.content, new ProfileFragment()).commit();
                     return true;
 
             }

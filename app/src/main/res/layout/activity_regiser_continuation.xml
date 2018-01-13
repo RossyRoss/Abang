@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="#07232f"
     tools:context="capstone.abang.com.RegisterContinuationActivity">
 
     <include layout="@layout/layout_toolbar"/>
@@ -115,10 +115,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorAccent"
+            android:background="#2bb2a4"
             android:text="Register"
             android:id="@+id/btnRegContinuation"
-            android:textColor="@color/white"
+            android:textColor="#fff"
             android:textSize="15sp"
             android:textStyle="normal"/>
     </RelativeLayout>

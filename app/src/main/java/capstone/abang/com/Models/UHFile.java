@@ -1,4 +1,4 @@
-package capstone.abang.com;
+package capstone.abang.com.Models;
 
 /**
  * Created by Pc-user on 09/01/2018.

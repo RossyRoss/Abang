@@ -35,6 +35,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import capstone.abang.com.Car_Owner.car_owner;
+import capstone.abang.com.Models.UDFile;
+import capstone.abang.com.Models.UHFile;
+import capstone.abang.com.Utils.Utility;
 
 public class RegisterContinuationActivity extends AppCompatActivity {
     //Declaring all widgets

@@ -1,4 +1,4 @@
-package capstone.abang.com;
+package capstone.abang.com.Models;
 
 /**
  * Created by Pc-user on 09/01/2018.
@@ -14,7 +14,7 @@ public class UDFile {
     private String UDContact;
     private String UDImageNbi;
 
-    private UDFile() {
+    public UDFile() {
 
     }
 
@@ -59,5 +59,37 @@ public class UDFile {
 
     public String getUDImageNbi() {
         return UDImageNbi;
+    }
+
+    public void setUDUserCode(String UDUserCode) {
+        this.UDUserCode = UDUserCode;
+    }
+
+    public void setUDFullname(String UDFullname) {
+        this.UDFullname = UDFullname;
+    }
+
+    public void setUDAddr(String UDAddr) {
+        this.UDAddr = UDAddr;
+    }
+
+    public void setUDEmail(String UDEmail) {
+        this.UDEmail = UDEmail;
+    }
+
+    public void setUDStatus(String UDStatus) {
+        this.UDStatus = UDStatus;
+    }
+
+    public void setUDUserType(String UDUserType) {
+        this.UDUserType = UDUserType;
+    }
+
+    public void setUDContact(String UDContact) {
+        this.UDContact = UDContact;
+    }
+
+    public void setUDImageNbi(String UDImageNbi) {
+        this.UDImageNbi = UDImageNbi;
     }
 }

@@ -1,4 +1,4 @@
-package capstone.abang.com;
+package capstone.abang.com.Utils;
 
 import android.Manifest;
 import android.annotation.TargetApi;
