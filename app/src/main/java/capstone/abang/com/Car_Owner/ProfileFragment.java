@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +40,10 @@ public class ProfileFragment extends Fragment {
     private TextView textViewContact;
     private TextView textViewAddress;
     private TextView textViewTransactions;
+    private LinearLayout linearLayout;
+
+    //holder
+    private boolean flag = true;
 
     //firebase
     private DatabaseReference myRef;
@@ -62,11 +67,19 @@ public class ProfileFragment extends Fragment {
         textViewEmail = view.findViewById(R.id.txtprofileuseremail);
         textViewContact = view.findViewById(R.id.txtprofileusercontact);
         textViewDateJoined = view.findViewById(R.id.txtprofileuserdatejoined);
+        linearLayout = view.findViewById(R.id.loader);
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference();
+
+        if(flag) {
+            linearLayout.setVisibility(View.VISIBLE);
+        } else {
+            linearLayout.setVisibility(View.GONE);
+        }
+
 
         //retrieve
         retrieveData();
@@ -83,8 +96,9 @@ public class ProfileFragment extends Fragment {
         textViewAddress.setText(udFile.getUDAddr());
         textViewContact.setText(udFile.getUDContact());
         textViewEmail.setText(udFile.getUDEmail());
+        flag = false;
+        linearLayout.setVisibility(View.GONE);
     }
-
 
     public void retrieveData() {
         myRef.addValueEventListener(new ValueEventListener() {
@@ -120,5 +134,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
     }
 }
