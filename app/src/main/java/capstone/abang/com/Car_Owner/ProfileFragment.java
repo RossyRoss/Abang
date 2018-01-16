@@ -1,14 +1,21 @@
 package capstone.abang.com.Car_Owner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +32,7 @@ import capstone.abang.com.Models.UDFile;
 import capstone.abang.com.Models.USettings;
 import capstone.abang.com.R;
 import capstone.abang.com.Models.UHFile;
+import capstone.abang.com.Utils.BottomNavigationViewHelper;
 
 
 public class ProfileFragment extends Fragment {
@@ -41,9 +49,9 @@ public class ProfileFragment extends Fragment {
     private TextView textViewAddress;
     private TextView textViewTransactions;
     private LinearLayout linearLayout;
+    private Button btnEditProfile;
+    private android.support.v7.widget.Toolbar toolbar;
 
-    //holder
-    private boolean flag = true;
 
     //firebase
     private DatabaseReference myRef;
@@ -68,24 +76,36 @@ public class ProfileFragment extends Fragment {
         textViewContact = view.findViewById(R.id.txtprofileusercontact);
         textViewDateJoined = view.findViewById(R.id.txtprofileuserdatejoined);
         linearLayout = view.findViewById(R.id.loader);
+        btnEditProfile = view.findViewById(R.id.btneditprofile);
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference();
 
-        if(flag) {
-            linearLayout.setVisibility(View.VISIBLE);
-        } else {
-            linearLayout.setVisibility(View.GONE);
-        }
+        linearLayout.setVisibility(View.VISIBLE);
 
+        //setup toolbar
+        setupToolbar(view);
 
         //retrieve
         retrieveData();
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void  setupToolbar(View view) {
+        android.support.v7.widget.Toolbar toolbar = view.findViewById(R.id.profiletoolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ImageView profileMenu = view.findViewById(R.id.profilemenu);
+        profileMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setProfileWidgets(USettings uSettings) {
@@ -96,7 +116,6 @@ public class ProfileFragment extends Fragment {
         textViewAddress.setText(udFile.getUDAddr());
         textViewContact.setText(udFile.getUDContact());
         textViewEmail.setText(udFile.getUDEmail());
-        flag = false;
         linearLayout.setVisibility(View.GONE);
     }
 

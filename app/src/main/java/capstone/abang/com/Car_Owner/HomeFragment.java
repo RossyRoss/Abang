@@ -25,7 +25,6 @@ import capstone.abang.com.R;
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
     //widgets
-    private Button btnLogout;
     private ProgressDialog progressDialog;
 
     //firebase
@@ -37,7 +36,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_owner_home, container, false);
         //widgets
-        btnLogout = view.findViewById(R.id.btnLogout);
         progressDialog = new ProgressDialog(getActivity());
 
         //firebase
@@ -57,19 +55,6 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-
-        //methods
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
-
 
         return view;
     }

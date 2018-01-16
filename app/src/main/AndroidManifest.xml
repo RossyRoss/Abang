@@ -22,7 +22,8 @@
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".Register.RegisterContinuationActivity"></activity>
         <activity android:name=".Car_Owner.car_owner">
-
+        </activity>
+        <activity android:name=".Car_Owner.AccountSettingsActivity">
         </activity>
     </application>
 </manifest>

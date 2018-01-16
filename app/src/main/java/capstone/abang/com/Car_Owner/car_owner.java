@@ -3,8 +3,10 @@ package capstone.abang.com.Car_Owner;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -12,11 +14,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import capstone.abang.com.Utils.BottomNavigationViewHelper;
 import capstone.abang.com.R;
+import capstone.abang.com.Utils.SectionsStatePagerAdapter;
 
 
 public class car_owner extends AppCompatActivity {
-
     private static final String TAG = car_owner.class.getSimpleName();
+
+    //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -29,7 +33,7 @@ public class car_owner extends AppCompatActivity {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    transaction.replace(R.id.content,new HomeFragment()).commit();
+                    transaction.replace(R.id.container,new HomeFragment()).commit();
                     return true;
                 case R.id.navigation_notifications:
 
@@ -41,7 +45,7 @@ public class car_owner extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_profile:
-                    transaction.replace(R.id.content, new ProfileFragment()).commit();
+                    transaction.replace(R.id.container, new ProfileFragment()).commit();
                     return true;
 
             }
@@ -54,16 +58,12 @@ public class car_owner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_owner);
 
-
-
         BottomNavigationView navigation = findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.content,new HomeFragment()).commit();
-
+        transaction.replace(R.id.container,new HomeFragment()).commit();
     }
-
 }

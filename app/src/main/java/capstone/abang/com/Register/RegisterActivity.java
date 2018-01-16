@@ -20,7 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import capstone.abang.com.R;
+import capstone.abang.com.Utils.UniversalImageLoader;
 import capstone.abang.com.Utils.Utility;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -68,6 +71,12 @@ public class RegisterActivity extends AppCompatActivity {
         //Methods
         setInit();
         setImage();
+        initImageLoader();
+    }
+
+    private void initImageLoader() {
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(this);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
     private void setImage() {
@@ -154,16 +163,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void onCaptureImageResult(Intent data) {
         Uri uri = data.getData();
-        holderUri = uri;
-        imgViewProfile.setImageURI(uri);
+        String holderUri = uri.toString();
+        UniversalImageLoader.setImage(holderUri, imgViewProfile, null, "");
         imgViewProfile.setBackgroundResource(0);
 
     }
 
     private void onSelectFromGalleryResult(Intent data) {
         Uri uri = data.getData();
-        holderUri = uri;
-        imgViewProfile.setImageURI(uri);
+        String holderUri = uri.toString();
+        UniversalImageLoader.setImage(holderUri, imgViewProfile, null, "");
         imgViewProfile.setBackgroundResource(0);
     }
 
