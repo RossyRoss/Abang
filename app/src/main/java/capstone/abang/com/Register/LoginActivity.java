@@ -17,8 +17,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import capstone.abang.com.Car_Owner.car_owner;
+import capstone.abang.com.Models.UDFile;
+import capstone.abang.com.Models.UHFile;
+import capstone.abang.com.Models.USettings;
 import capstone.abang.com.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,7 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnRegister;
     private ProgressDialog progressDialog;
 
-    //Firebase things
+    //firebase
+    private DatabaseReference myRef;
+    private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
 
     @Override
@@ -44,14 +54,15 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         progressDialog = new ProgressDialog(this);
 
-        //Firebase
+        //firebase
         mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = firebaseDatabase.getReference();
 
         //Methods
         setInit();
 
     }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -84,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
+                                        checkCurrentUser(user);
                                         Intent homeIntent = new Intent(getApplicationContext(), car_owner.class);
                                         startActivity(homeIntent);
                                         progressDialog.hide();
@@ -108,6 +120,11 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(registerIntent);
             }
         });
+    }
+
+    private void checkCurrentUser(FirebaseUser mUser) {
+        mUser = mAuth.getCurrentUser();
+
     }
 
     private void toastMethod(String message) {

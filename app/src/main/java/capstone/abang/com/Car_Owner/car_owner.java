@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import capstone.abang.com.Utils.BottomNavigationViewHelper;
 import capstone.abang.com.R;
@@ -20,9 +22,6 @@ import capstone.abang.com.Utils.SectionsStatePagerAdapter;
 public class car_owner extends AppCompatActivity {
     private static final String TAG = car_owner.class.getSimpleName();
 
-    //firebase
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,5 +64,7 @@ public class car_owner extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container,new HomeFragment()).commit();
+
+
     }
 }

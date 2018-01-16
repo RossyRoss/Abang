@@ -41,23 +41,22 @@ public class SignOutFragment extends Fragment {
         //cast widgets
         btnLogout = view.findViewById(R.id.btnsignout);
         //firebase
-        //firebase
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null) {
-                    //user is signed in
-                    Log.d(TAG,"onAuthStateChanged:signed_in" + user.getUid());
-                } else {
-                    //user is signed out
-                    Log.d(TAG,"onAuthStateChanged:signed_out");
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            }
-        };
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if(user != null) {
+//                    //user is signed in
+//                    Log.d(TAG,"onAuthStateChanged:signed_in" + user.getUid());
+//                } else {
+//                    //user is signed out
+//                    Log.d(TAG,"onAuthStateChanged:signed_out");
+//                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        };
 
         //setup toolbar
         setupToolbar(view);

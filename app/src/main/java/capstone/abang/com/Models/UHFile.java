@@ -36,4 +36,20 @@ public class UHFile {
     public String getUHStatus() {
         return UHStatus;
     }
+
+    public void setUHUsercode(String UHUsercode) {
+        this.UHUsercode = UHUsercode;
+    }
+
+    public void setUHUsername(String UHUsername) {
+        this.UHUsername = UHUsername;
+    }
+
+    public void setUHPassword(String UHPassword) {
+        this.UHPassword = UHPassword;
+    }
+
+    public void setUHStatus(String UHStatus) {
+        this.UHStatus = UHStatus;
+    }
 }
