@@ -76,7 +76,7 @@ public class EditProfileFragment extends Fragment {
         editTextUserContactNumber.setText(udFile.getUDContact());
         editTextUserEmail.setText(udFile.getUDEmail());
     }
-
+    //charles
     private void setupToolbar(View view) {
         Toolbar toolbar = view.findViewById(R.id.editprofiletoolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
