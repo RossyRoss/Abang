@@ -35,7 +35,7 @@ public class Car_Renter extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_profile:
-
+                    transaction.replace(R.id.container, new RenterProfileFragment()).commit();
                     return true;
 
             }

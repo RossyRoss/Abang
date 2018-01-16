@@ -1,21 +1,16 @@
-package capstone.abang.com.Car_Owner;
+package capstone.abang.com.Car_Renter;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,21 +20,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import capstone.abang.com.Car_Owner.AccountSettingsActivity;
 import capstone.abang.com.Models.UDFile;
+import capstone.abang.com.Models.UHFile;
 import capstone.abang.com.Models.USettings;
 import capstone.abang.com.R;
-import capstone.abang.com.Models.UHFile;
-import capstone.abang.com.Utils.BottomNavigationViewHelper;
 
+/**
+ * Created by Pc-user on 17/01/2018.
+ */
 
-public class ProfileFragment extends Fragment {
-    private static final String TAG ="ProfileFragment";
-    //lists
-    List<UHFile> uhFiles = new ArrayList<UHFile>();
-
+public class RenterProfileFragment extends Fragment {
     //widgets
     private ImageView imgViewProfilePicture;
     private TextView textViewName;
@@ -49,23 +40,16 @@ public class ProfileFragment extends Fragment {
     private TextView textViewAddress;
     private TextView textViewTransactions;
     private LinearLayout linearLayout;
-    private Button btnEditProfile;
-    private android.support.v7.widget.Toolbar toolbar;
-
 
     //firebase
     private DatabaseReference myRef;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_renter_profile, container, false);
 
         //casting widgets
         imgViewProfilePicture = view.findViewById(R.id.imgviewprofilepic);
@@ -76,7 +60,6 @@ public class ProfileFragment extends Fragment {
         textViewContact = view.findViewById(R.id.txtprofileusercontact);
         textViewDateJoined = view.findViewById(R.id.txtprofileuserdatejoined);
         linearLayout = view.findViewById(R.id.loader);
-        btnEditProfile = view.findViewById(R.id.btneditprofile);
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
@@ -94,9 +77,8 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
-
     private void  setupToolbar(View view) {
-        toolbar = view.findViewById(R.id.profiletoolbar);
+        Toolbar toolbar = view.findViewById(R.id.profiletoolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ImageView profileMenu = view.findViewById(R.id.profilemenu);
         profileMenu.setOnClickListener(new View.OnClickListener() {
@@ -148,11 +130,5 @@ public class ProfileFragment extends Fragment {
             }
         }
         return new USettings(udFile, uhFile);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
     }
 }

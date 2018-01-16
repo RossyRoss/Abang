@@ -7,12 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context="capstone.abang.com.Car_Renter.Car_Renter">
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/top_color">
-
-    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/layout_center_viewpager" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

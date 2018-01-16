@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Register.SplashActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,9 +31,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBUYV708xZ1c0k3H95n6V_UbNwchVdxNac" />
-        <activity android:name=".Car_Renter.Car_Renter"></activity>
 
-
+        <activity android:name=".Car_Renter.Car_Renter" />
     </application>
 
 </manifest>
