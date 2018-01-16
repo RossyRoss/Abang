@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="capstone.abang.com">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Register.SplashActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,10 +25,16 @@
         </activity>
         <activity android:name=".Register.LoginActivity" />
         <activity android:name=".Register.RegisterActivity" />
-        <activity android:name=".Register.RegisterContinuationActivity"></activity>
-        <activity android:name=".Car_Owner.car_owner">
-        </activity>
-        <activity android:name=".Car_Owner.AccountSettingsActivity">
-        </activity>
+        <activity android:name=".Register.RegisterContinuationActivity" />
+        <activity android:name=".Car_Owner.car_owner" />
+        <activity android:name=".Car_Owner.AccountSettingsActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBUYV708xZ1c0k3H95n6V_UbNwchVdxNac" />
+        <activity android:name=".Car_Renter.Car_Renter"></activity>
+
+
     </application>
+
 </manifest>

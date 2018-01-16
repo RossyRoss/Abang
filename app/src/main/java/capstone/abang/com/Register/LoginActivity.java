@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import capstone.abang.com.Car_Owner.car_owner;
+import capstone.abang.com.Car_Renter.Car_Renter;
 import capstone.abang.com.Models.UDFile;
 import capstone.abang.com.Models.UHFile;
 import capstone.abang.com.Models.USettings;
@@ -88,7 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), car_owner.class);
                         startActivity(intent);
                     } else {
-                        toastMethod("Charles Ko");
+                        Intent intent = new Intent(getApplicationContext(), Car_Renter.class);
+                        startActivity(intent);
                     }
                 }
                 @Override
@@ -181,7 +183,10 @@ public class LoginActivity extends AppCompatActivity {
                                                     progressDialog.dismiss();
                                                     finish();
                                                 } else {
-                                                    toastMethod("Charles Ko");
+                                                    Intent homeIntent = new Intent(getApplicationContext(), Car_Renter.class);
+                                                    startActivity(homeIntent);
+                                                    progressDialog.dismiss();
+                                                    finish();
                                                 }
                                             }
                                             @Override

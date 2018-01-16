@@ -3,15 +3,16 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:layout_marginTop="?actionBarSize"
 tools:context="capstone.abang.com.Car_Owner.car_owner">
 
 <!-- TODO: Update blank fragment layout -->
 
-    <Button
+    <include layout="@layout/layout_toolbar_home_ownerfragment"/>
+    <com.google.android.gms.maps.MapView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="LOG OUT"
-        android:id="@+id/btnLogout"/>
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        />
+
 
 </FrameLayout>
