@@ -51,7 +51,7 @@ public class EditProfileFragment extends Fragment {
         editTextUserAddress = view.findViewById(R.id.eteditaddress);
         editTextUserContactNumber = view.findViewById(R.id.eteditcontactnumber);
         editTextUserEmail = view.findViewById(R.id.eteditcontactemail);
-
+        //charles
         //firebase
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
