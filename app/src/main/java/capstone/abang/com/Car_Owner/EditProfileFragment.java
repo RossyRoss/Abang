@@ -71,7 +71,6 @@ public class EditProfileFragment extends Fragment {
         UHFile uhFile = uSettings.getUhFile();
 
         editTextUserName.setText(uhFile.getUHUsername());
-        Log.d(TAG,"setEditProfileWidgets" + uhFile.getUHUsername());
         editTextUserFullName.setText(udFile.getUDFullname());
         editTextUserAddress.setText(udFile.getUDAddr());
         editTextUserContactNumber.setText(udFile.getUDContact());

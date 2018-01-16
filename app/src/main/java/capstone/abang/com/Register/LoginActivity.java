@@ -31,6 +31,7 @@ import capstone.abang.com.R;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
+    private String userLevel;
     //Declaring all widgets
     private EditText etUserName;
     private EditText etPassword;
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +58,12 @@ public class LoginActivity extends AppCompatActivity {
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference();
 
         //Methods
         setInit();
-
     }
     @Override
     public void onStart() {
@@ -69,9 +71,71 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
-            Intent intent = new Intent(this, car_owner.class);
-            startActivity(intent);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String userID = user.getUid();
+                    UDFile udFile = new UDFile();
+                    Log.d(TAG, "retrieveData: navigating to set user level");
+                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                        if(ds.getKey().equals("UDFile")) {
+                            udFile = ds.child(userID).getValue(UDFile.class);
+                        }
+                    }
+                    assert udFile != null;
+                    userLevel = udFile.getUDUserType();
+                    if(userLevel.equalsIgnoreCase("Owner")) {
+                        Intent intent = new Intent(getApplicationContext(), car_owner.class);
+                        startActivity(intent);
+                    } else {
+                        toastMethod("Charles Ko");
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
+    }
+
+    private void retrieveData() {
+        Log.d(TAG,"retrieveData: retrieving");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "retrieveData: navigating to set user level");
+                userLevel(getUserSettings(dataSnapshot));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void userLevel(USettings uSettings) {
+        UDFile udFile = uSettings.getUdFile();
+        Log.d(TAG,"userLevel: setting uer level");
+        userLevel = udFile.getUDUserType();
+        Log.d(TAG,"PLEASE " + userLevel);
+    }
+
+    private USettings getUserSettings(DataSnapshot dataSnapshot) {
+        String userID = user.getUid();
+        UDFile udFile = new UDFile();
+        UHFile uhFile = new UHFile();
+
+        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+            if(ds.getKey().equals("UDFile")) {
+                udFile = ds.child(userID).getValue(UDFile.class);
+            }
+            if(ds.getKey().equals("UHFile")) {
+                uhFile = ds.child(userID).getValue(UHFile.class);
+            }
+        }
+        return new USettings(udFile, uhFile);
     }
 
     private void setInit() {
@@ -94,12 +158,37 @@ public class LoginActivity extends AppCompatActivity {
                                     if(task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        checkCurrentUser(user);
-                                        Intent homeIntent = new Intent(getApplicationContext(), car_owner.class);
-                                        startActivity(homeIntent);
-                                        progressDialog.hide();
-                                        finish();
+                                        user = mAuth.getCurrentUser();
+
+                                        //getting userlevel
+                                        Log.d(TAG,"retrieveData: retrieving");
+                                        myRef.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                String userID = user.getUid();
+                                                UDFile udFile = new UDFile();
+                                                Log.d(TAG, "retrieveData: navigating to set user level");
+                                                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                                                    if(ds.getKey().equals("UDFile")) {
+                                                        udFile = ds.child(userID).getValue(UDFile.class);
+                                                    }
+                                                }
+                                                assert udFile != null;
+                                                userLevel = udFile.getUDUserType();
+                                                if(userLevel.equalsIgnoreCase("Owner")) {
+                                                    Intent homeIntent = new Intent(getApplicationContext(), car_owner.class);
+                                                    startActivity(homeIntent);
+                                                    progressDialog.dismiss();
+                                                    finish();
+                                                } else {
+                                                    toastMethod("Charles Ko");
+                                                }
+                                            }
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
                                     }
                                     else {
                                         // If sign in fails, display a message to the user.
@@ -120,11 +209,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(registerIntent);
             }
         });
-    }
-
-    private void checkCurrentUser(FirebaseUser mUser) {
-        mUser = mAuth.getCurrentUser();
-
     }
 
     private void toastMethod(String message) {
