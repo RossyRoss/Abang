@@ -35,12 +35,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import capstone.abang.com.Car_Owner.car_owner;
+import capstone.abang.com.Car_Renter.Car_Renter;
 import capstone.abang.com.Models.UDFile;
 import capstone.abang.com.Models.UHFile;
 import capstone.abang.com.R;
 import capstone.abang.com.Utils.Utility;
 
 public class RegisterContinuationActivity extends AppCompatActivity {
+    private static final String TAG = "RegisterContinuation";
     //Declaring all widgets
     private ImageView imgViewNBI;
     private ImageView imgViewSecondaryID;
@@ -71,6 +73,7 @@ public class RegisterContinuationActivity extends AppCompatActivity {
 
     //Firebase things
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private StorageReference mStorage;
     private DatabaseReference mDatabaseUserHeader;
     private DatabaseReference mDatabaseUserDetail;
@@ -110,6 +113,7 @@ public class RegisterContinuationActivity extends AppCompatActivity {
         //Methods
         setInit();
         setImage();
+
     }
 
     private void setImage() {
@@ -263,6 +267,7 @@ public class RegisterContinuationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
+                            sendVerificationEmail();
                             FirebaseUser user = mAuth.getCurrentUser();
                             final String id = user.getUid();
                             //Insert data to UHFile
@@ -278,11 +283,17 @@ public class RegisterContinuationActivity extends AppCompatActivity {
                                     UDFile newUserDetail = new UDFile(id, name, addr, email, "AC", type, contact, strNBI);
                                     mDatabaseUserDetail.child(id).setValue(newUserDetail);
                                     progressDialog.hide();
-                                    toastMethod("Successfully Registered");
-                                    if(type.equals("Owner")) {
-                                        Intent intent = new Intent(getApplicationContext(), car_owner.class);
-                                        startActivity(intent);
-                                    }
+                                    toastMethod("Email verification has been sent. Please verify");
+                                    mAuth.signOut();
+                                    finish();
+//                                    if(type.equals("Owner")) {
+//                                        Intent intent = new Intent(getApplicationContext(), car_owner.class);
+//                                        startActivity(intent);
+//                                    }
+//                                    else {
+//                                        Intent intent = new Intent(getApplicationContext(), Car_Renter.class);
+//                                        startActivity(intent);
+//                                    }
                                 }
                             });
                         }
@@ -292,6 +303,24 @@ public class RegisterContinuationActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void sendVerificationEmail() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null) {
+            user.sendEmailVerification()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()) {
+
+                            }
+                            else {
+                                toastMethod("Couldn't send verification email. Please try again!");
+                            }
+                        }
+                    });
+        }
     }
 
     private void toastMethod(String message) {

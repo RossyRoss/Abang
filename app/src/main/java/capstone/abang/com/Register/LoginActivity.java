@@ -26,8 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import capstone.abang.com.Car_Owner.car_owner;
 import capstone.abang.com.Car_Renter.Car_Renter;
 import capstone.abang.com.Models.UDFile;
-import capstone.abang.com.Models.UHFile;
-import capstone.abang.com.Models.USettings;
 import capstone.abang.com.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -101,45 +99,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void retrieveData() {
-        Log.d(TAG,"retrieveData: retrieving");
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "retrieveData: navigating to set user level");
-                userLevel(getUserSettings(dataSnapshot));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void userLevel(USettings uSettings) {
-        UDFile udFile = uSettings.getUdFile();
-        Log.d(TAG,"userLevel: setting uer level");
-        userLevel = udFile.getUDUserType();
-        Log.d(TAG,"PLEASE " + userLevel);
-    }
-
-    private USettings getUserSettings(DataSnapshot dataSnapshot) {
-        String userID = user.getUid();
-        UDFile udFile = new UDFile();
-        UHFile uhFile = new UHFile();
-
-        for (DataSnapshot ds: dataSnapshot.getChildren()) {
-            if(ds.getKey().equals("UDFile")) {
-                udFile = ds.child(userID).getValue(UDFile.class);
-            }
-            if(ds.getKey().equals("UHFile")) {
-                uhFile = ds.child(userID).getValue(UHFile.class);
-            }
-        }
-        return new USettings(udFile, uhFile);
-    }
-
     private void setInit() {
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -157,49 +116,61 @@ public class LoginActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d(TAG, "signInWithEmail:success");
-                                        user = mAuth.getCurrentUser();
-
-                                        //getting userlevel
-                                        Log.d(TAG,"retrieveData: retrieving");
-                                        myRef.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                String userID = user.getUid();
-                                                UDFile udFile = new UDFile();
-                                                Log.d(TAG, "retrieveData: navigating to set user level");
-                                                for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                                                    if(ds.getKey().equals("UDFile")) {
-                                                        udFile = ds.child(userID).getValue(UDFile.class);
-                                                    }
-                                                }
-                                                assert udFile != null;
-                                                userLevel = udFile.getUDUserType();
-                                                if(userLevel.equalsIgnoreCase("Owner")) {
-                                                    Intent homeIntent = new Intent(getApplicationContext(), car_owner.class);
-                                                    startActivity(homeIntent);
-                                                    progressDialog.dismiss();
-                                                    finish();
-                                                } else {
-                                                    Intent homeIntent = new Intent(getApplicationContext(), Car_Renter.class);
-                                                    startActivity(homeIntent);
-                                                    progressDialog.dismiss();
-                                                    finish();
-                                                }
-                                            }
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        });
-                                    }
-                                    else {
+                                    if(!task.isSuccessful()) {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                                         toastMethod("Authentication failed!");
                                         progressDialog.hide();
+                                    }
+                                    else {
+                                        try {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Log.d(TAG, "signInWithEmail:success");
+                                            user = mAuth.getCurrentUser();
+
+                                            if(user.isEmailVerified()) {
+                                                //getting userlevel
+                                                Log.d(TAG,"retrieveData: retrieving");
+                                                myRef.addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        String userID = user.getUid();
+                                                        UDFile udFile = new UDFile();
+                                                        Log.d(TAG, "retrieveData: navigating to set user level");
+                                                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                                                            if(ds.getKey().equals("UDFile")) {
+                                                                udFile = ds.child(userID).getValue(UDFile.class);
+                                                            }
+                                                        }
+                                                        assert udFile != null;
+                                                        userLevel = udFile.getUDUserType();
+                                                        if(userLevel.equalsIgnoreCase("Owner")) {
+                                                            Intent homeIntent = new Intent(getApplicationContext(), car_owner.class);
+                                                            startActivity(homeIntent);
+                                                            progressDialog.dismiss();
+                                                            finish();
+                                                        } else {
+                                                            Intent homeIntent = new Intent(getApplicationContext(), Car_Renter.class);
+                                                            startActivity(homeIntent);
+                                                            progressDialog.dismiss();
+                                                            finish();
+                                                        }
+                                                    }
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                toastMethod("Please verify your email");
+                                                mAuth.signOut();
+                                                progressDialog.dismiss();
+                                            }
+
+                                        } catch (NullPointerException e) {
+                                            Log.d(TAG,"NullPointerException" + e.getMessage());
+                                        }
                                     }
                                 }
                             });
