@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AbangFinal.iml" filepath="$PROJECT_DIR$/AbangFinal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AbangAppFinal.iml" filepath="$PROJECT_DIR$/AbangAppFinal.iml" />
+      <module fileurl="file://C:\Users\Rylai\Desktop\CAPSTONE\AbangAppFinal\AbangFinal.iml" filepath="C:\Users\Rylai\Desktop\CAPSTONE\AbangAppFinal\AbangFinal.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
     </modules>
   </component>
 </project>

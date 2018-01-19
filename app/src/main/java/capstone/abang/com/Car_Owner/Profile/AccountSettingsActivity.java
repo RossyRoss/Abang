@@ -1,19 +1,13 @@
-package capstone.abang.com.Car_Owner;
+package capstone.abang.com.Car_Owner.Profile;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -21,7 +15,6 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 import capstone.abang.com.R;
-import capstone.abang.com.Utils.SectionsStatePagerAdapter;
 
 /**
  * Created by Pc-user on 16/01/2018.

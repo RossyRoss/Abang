@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/navigation_shutter"
-        android:icon="@drawable/shutter"
+        android:icon="@null"
         android:title="Endorse" />
 
     <item

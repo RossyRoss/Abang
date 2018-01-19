@@ -18,6 +18,14 @@ android {
     }
 }
 
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -39,6 +47,15 @@ dependencies {
 
     //Universal Image Loader
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+    //gallery-library
+    testCompile 'junit:junit:4.12'
+    compile project(path: ':lib')
+
+    //
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
