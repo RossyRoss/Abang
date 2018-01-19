@@ -312,16 +312,21 @@ public class RegisterContinuationActivity extends AppCompatActivity {
                                             Uri profile = taskSnapshot.getDownloadUrl();
                                             profileImage = profile.toString();
                                             StorageReference myRef = mStorage.child(id).child(holder2.getLastPathSegment());
-                                            Uri secondary = taskSnapshot.getDownloadUrl();
-                                            secondaryImage = secondary.toString();
-                                            UDFile newUserDetail = new UDFile(id, name, addr, email, "AC", type, contact, nbiImage,profileImage,secondaryImage);
-                                            Log.d("MGA PATH KUYA", "TARA AY: " + nbiImage + " " + profileImage + " " + secondaryImage);
-                                            mDatabaseUserDetail.child(id).setValue(newUserDetail);
-                                            progressDialog.hide();
-                                            toastMethod("Email verification has been sent. Please verify");
-                                            mAuth.signOut();
-                                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                            startActivity(intent);
+                                            myRef.putFile(holder2).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                    Uri secondary = taskSnapshot.getDownloadUrl();
+                                                    secondaryImage = secondary.toString();
+                                                    UDFile newUserDetail = new UDFile(id, name, addr, email, "AC", type, contact, nbiImage,profileImage,secondaryImage);
+                                                    Log.d("MGA PATH KUYA", "TARA AY: " + nbiImage + " " + profileImage + " " + secondaryImage);
+                                                    mDatabaseUserDetail.child(id).setValue(newUserDetail);
+                                                    progressDialog.hide();
+                                                    toastMethod("Email verification has been sent. Please verify");
+                                                    mAuth.signOut();
+                                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                            });
                                         }
                                     });
                                 }
