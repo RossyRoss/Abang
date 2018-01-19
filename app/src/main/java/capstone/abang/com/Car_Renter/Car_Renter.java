@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 
+import capstone.abang.com.Car_Renter.Home.HomeFragment;
+import capstone.abang.com.Car_Renter.Profile.RenterProfileFragment;
 import capstone.abang.com.R;
 import capstone.abang.com.Utils.BottomNavigationViewHelper;
 
@@ -23,7 +25,7 @@ public class Car_Renter extends AppCompatActivity {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
+                    transaction.replace(R.id.container, new HomeFragment()).commit();
                     return true;
                 case R.id.navigation_favourites:
 
@@ -51,5 +53,9 @@ public class Car_Renter extends AppCompatActivity {
         BottomNavigationView navigation =  findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container,new HomeFragment()).commit();
     }
 }

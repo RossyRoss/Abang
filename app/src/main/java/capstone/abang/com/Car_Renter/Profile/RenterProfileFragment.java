@@ -1,4 +1,4 @@
-package capstone.abang.com.Car_Renter;
+package capstone.abang.com.Car_Renter.Profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +19,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import capstone.abang.com.Car_Owner.Profile.AccountSettingsActivity;
 import capstone.abang.com.Models.UDFile;
 import capstone.abang.com.Models.UHFile;
 import capstone.abang.com.Models.USettings;
 import capstone.abang.com.R;
+import capstone.abang.com.Utils.UniversalImageLoader;
 
 /**
  * Created by Pc-user on 17/01/2018.
@@ -71,12 +73,19 @@ public class RenterProfileFragment extends Fragment {
         //setup toolbar
         setupToolbar(view);
 
+        initImageLoader();
+
         //retrieve
         retrieveData();
 
         // Inflate the layout for this fragment
         return view;
     }
+    private void initImageLoader() {
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(getContext());
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
+    }
+
     private void  setupToolbar(View view) {
         Toolbar toolbar = view.findViewById(R.id.profiletoolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -99,6 +108,9 @@ public class RenterProfileFragment extends Fragment {
         textViewContact.setText(udFile.getUDContact());
         textViewEmail.setText(udFile.getUDEmail());
         linearLayout.setVisibility(View.GONE);
+        UniversalImageLoader.setImage(udFile.getUDImageProfile(), imgViewProfilePicture, null, "");
+        imgViewProfilePicture.setBackgroundResource(0);
+
     }
 
     public void retrieveData() {
