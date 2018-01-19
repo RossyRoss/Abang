@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -33,12 +35,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
 
 import capstone.abang.com.Car_Owner.car_owner;
 import capstone.abang.com.Car_Renter.Car_Renter;
 import capstone.abang.com.Models.UDFile;
 import capstone.abang.com.Models.UHFile;
 import capstone.abang.com.R;
+import capstone.abang.com.Utils.UniversalImageLoader;
 import capstone.abang.com.Utils.Utility;
 
 public class RegisterContinuationActivity extends AppCompatActivity {
@@ -62,6 +68,10 @@ public class RegisterContinuationActivity extends AppCompatActivity {
     private String addr = null;
     private String type = null;
     private String contact = null;
+    private Uri image = null;
+    private String profileImage;
+    private String nbiImage;
+    private String secondaryImage;
 
     //Responsible for photos
     private String userChoosenTask;
@@ -110,10 +120,20 @@ public class RegisterContinuationActivity extends AppCompatActivity {
         mDatabaseUserDetail = FirebaseDatabase.getInstance().getReference("UDFile");
         mStorage = FirebaseStorage.getInstance().getReference("Photos");
 
+
+
+
         //Methods
         setInit();
         setImage();
+        initImageLoader();
 
+
+    }
+
+    private void initImageLoader() {
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(this);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
     private void setImage() {
@@ -189,13 +209,13 @@ public class RegisterContinuationActivity extends AppCompatActivity {
     private void onCaptureImageResult(Intent data) {
         Uri uri = data.getData();
         if(holder == 1) {
-            imgViewNBI.setImageURI(uri);
+            UniversalImageLoader.setImage(uri.toString(), imgViewNBI, null,"");
             imgViewNBI.setScaleType(ImageView.ScaleType.CENTER_CROP);
             holder1 = uri;
             imgViewNBI.setBackgroundResource(0);
         }
         else {
-            imgViewSecondaryID.setImageURI(uri);
+            UniversalImageLoader.setImage(uri.toString(), imgViewSecondaryID, null,"");
             imgViewSecondaryID.setScaleType(ImageView.ScaleType.CENTER_CROP);
             holder2 = uri;
             imgViewSecondaryID.setBackgroundResource(0);
@@ -206,13 +226,13 @@ public class RegisterContinuationActivity extends AppCompatActivity {
     private void onSelectFromGalleryResult(Intent data) {
         Uri uri = data.getData();
         if(holder == 1) {
-            imgViewNBI.setImageURI(uri);
+            UniversalImageLoader.setImage(uri.toString(), imgViewNBI, null,"");
             imgViewNBI.setScaleType(ImageView.ScaleType.CENTER_CROP);
             holder1 = uri;
             imgViewNBI.setBackgroundResource(0);
         }
         else {
-            imgViewSecondaryID.setImageURI(uri);
+            UniversalImageLoader.setImage(uri.toString(), imgViewSecondaryID, null,"");
             imgViewSecondaryID.setScaleType(ImageView.ScaleType.CENTER_CROP);
             holder2 = uri;
             imgViewSecondaryID.setBackgroundResource(0);
@@ -252,6 +272,11 @@ public class RegisterContinuationActivity extends AppCompatActivity {
             username = bundle.getString("username");
             addr = bundle.getString("addr");
             contact = bundle.getString("contact");
+            String holderImage = bundle.getString("image");
+            image = Uri.parse(holderImage);
+
+
+
             if(radioButtonRenter.isChecked()) {
                 type = "Renter";
             } else if(radioButtonOwner.isChecked()) {
@@ -265,37 +290,43 @@ public class RegisterContinuationActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(@NonNull final Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             sendVerificationEmail();
                             FirebaseUser user = mAuth.getCurrentUser();
                             final String id = user.getUid();
+
                             //Insert data to UHFile
                             UHFile newUserHeader = new UHFile(id, username, pass, "AC");
                             mDatabaseUserHeader.child(id).setValue(newUserHeader);
-                            final StorageReference nbiFile = mStorage.child(id).child(holder1.getLastPathSegment());
-                            nbiFile.putFile(holder1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            final StorageReference myRef = mStorage.child(id).child(holder1.getLastPathSegment());
+                            myRef.putFile(holder1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     final Uri nbiUri = taskSnapshot.getDownloadUrl();
-                                    String strNBI = nbiUri.toString();
-                                    //Insert data to UDFile
-                                    UDFile newUserDetail = new UDFile(id, name, addr, email, "AC", type, contact, strNBI);
-                                    mDatabaseUserDetail.child(id).setValue(newUserDetail);
-                                    progressDialog.hide();
-                                    toastMethod("Email verification has been sent. Please verify");
-                                    mAuth.signOut();
-                                    finish();
-//                                    if(type.equals("Owner")) {
-//                                        Intent intent = new Intent(getApplicationContext(), car_owner.class);
-//                                        startActivity(intent);
-//                                    }
-//                                    else {
-//                                        Intent intent = new Intent(getApplicationContext(), Car_Renter.class);
-//                                        startActivity(intent);
-//                                    }
+                                    nbiImage = nbiUri.toString();
+                                    StorageReference myRef = mStorage.child(id).child(image.getLastPathSegment());
+                                    myRef.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            Uri profile = taskSnapshot.getDownloadUrl();
+                                            profileImage = profile.toString();
+                                            StorageReference myRef = mStorage.child(id).child(holder2.getLastPathSegment());
+                                            Uri secondary = taskSnapshot.getDownloadUrl();
+                                            secondaryImage = secondary.toString();
+                                            UDFile newUserDetail = new UDFile(id, name, addr, email, "AC", type, contact, nbiImage,profileImage,secondaryImage);
+                                            Log.d("MGA PATH KUYA", "TARA AY: " + nbiImage + " " + profileImage + " " + secondaryImage);
+                                            mDatabaseUserDetail.child(id).setValue(newUserDetail);
+                                            progressDialog.hide();
+                                            toastMethod("Email verification has been sent. Please verify");
+                                            mAuth.signOut();
+                                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    });
                                 }
                             });
+
                         }
                         else {
                             toastMethod("Technical difficulties");
@@ -322,6 +353,7 @@ public class RegisterContinuationActivity extends AppCompatActivity {
                     });
         }
     }
+
 
     private void toastMethod(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

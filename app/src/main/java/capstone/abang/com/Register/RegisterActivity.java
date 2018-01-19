@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String userChoosenTask;
     private int REQUEST_CAMERA = 0;
     private int SELECT_FILE = 1;
-    private Uri holderUri;
+    private String holderUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +164,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void onCaptureImageResult(Intent data) {
         Uri uri = data.getData();
-        String holderUri = uri.toString();
+        holderUri = uri.toString();
         UniversalImageLoader.setImage(holderUri, imgViewProfile, null, "");
         imgViewProfile.setBackgroundResource(0);
 
@@ -171,7 +172,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void onSelectFromGalleryResult(Intent data) {
         Uri uri = data.getData();
-        String holderUri = uri.toString();
+        holderUri = uri.toString();
+        Log.d("REGISTER ACTIVITY", "onSelectFromGalleryResult" + holderUri);
         UniversalImageLoader.setImage(holderUri, imgViewProfile, null, "");
         imgViewProfile.setBackgroundResource(0);
     }
@@ -227,6 +229,7 @@ public class RegisterActivity extends AppCompatActivity {
         moveToNext.putExtra("name", name);
         moveToNext.putExtra("addr", addr);
         moveToNext.putExtra("contact", contact);
+        moveToNext.putExtra("image", holderUri);
         startActivity(moveToNext);
     }
 

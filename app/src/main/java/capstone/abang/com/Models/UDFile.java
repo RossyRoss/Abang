@@ -13,12 +13,16 @@ public class UDFile {
     private String UDUserType;
     private String UDContact;
     private String UDImageNbi;
+    private String UDImageProfile;
+    private String UDImageSecondaryID;
+
+
 
     public UDFile() {
 
     }
 
-    public UDFile(String UDUserCode, String UDFullname, String UDAddr, String UDEmail, String UDStatus, String UDUserType, String UDContact, String UDImageNbi) {
+    public UDFile(String UDUserCode, String UDFullname, String UDAddr, String UDEmail, String UDStatus, String UDUserType, String UDContact, String UDImageNbi, String UDImageProfile, String UDImageSecondaryID) {
         this.UDUserCode = UDUserCode;
         this.UDFullname = UDFullname;
         this.UDAddr = UDAddr;
@@ -27,6 +31,24 @@ public class UDFile {
         this.UDUserType = UDUserType;
         this.UDContact = UDContact;
         this.UDImageNbi = UDImageNbi;
+        this.UDImageProfile = UDImageProfile;
+        this.UDImageSecondaryID = UDImageSecondaryID;
+    }
+
+    public String getUDImageProfile() {
+        return UDImageProfile;
+    }
+
+    public void setUDImageProfile(String UDImageProfile) {
+        this.UDImageProfile = UDImageProfile;
+    }
+
+    public String getUDImageSecondaryID() {
+        return UDImageSecondaryID;
+    }
+
+    public void setUDImageSecondaryID(String UDImageSecondaryID) {
+        this.UDImageSecondaryID = UDImageSecondaryID;
     }
 
     public String getUDUserCode() {

@@ -22,7 +22,7 @@ import capstone.abang.com.R;
  */
 
 public class UniversalImageLoader {
-    private static final int defaultImage = R.drawable.person;
+    private static final int defaultImage = R.drawable.loading;
     private Context mContext;
 
     public UniversalImageLoader(Context context) {
