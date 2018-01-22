@@ -150,5 +150,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:background="#768187"/>
+
+        <include layout="@layout/snippet_center_renter_homefragment"/>
     </LinearLayout>
 </FrameLayout>

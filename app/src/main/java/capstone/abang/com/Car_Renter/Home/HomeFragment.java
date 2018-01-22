@@ -1,5 +1,6 @@
 package capstone.abang.com.Car_Renter.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -49,6 +50,27 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setLayoutManager(mLayoutManager);
+
+        //populate
+        mFirebaseDatabase = new FirebaseRecyclerAdapter<CategoryFile, ShowDataViewHolder>
+                (CategoryFile.class, R.layout.layout_model_categories, ShowDataViewHolder.class, myRef) {
+
+            public void populateViewHolder(final ShowDataViewHolder viewHolder, final CategoryFile model, final int position) {
+                viewHolder.setImage(model.getCatImage());
+                viewHolder.setDescription(model.getCatDesc());
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), CarsActivity.class);
+                        intent.putExtra("code", model.getCatCode());
+                        startActivity(intent);
+                    }
+                });
+            }
+
+        };
+        recyclerView.setAdapter(mFirebaseDatabase);
         return view;
     }
 
@@ -60,16 +82,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mFirebaseDatabase = new FirebaseRecyclerAdapter<CategoryFile, ShowDataViewHolder>
-                (CategoryFile.class, R.layout.layout_model_categories, ShowDataViewHolder.class, myRef) {
-
-            public void populateViewHolder(final ShowDataViewHolder viewHolder, CategoryFile model, final int position) {
-                viewHolder.setImage(model.getCatImage());
-                viewHolder.setDescription(model.getCatDesc());
-            }
-
-        };
-        recyclerView.setAdapter(mFirebaseDatabase);
     }
 
     //View Holder For Recycler View

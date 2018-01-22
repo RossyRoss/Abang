@@ -8,6 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +35,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import capstone.abang.com.Models.CDFile;
 import capstone.abang.com.Models.UDFile;
 import capstone.abang.com.Models.USettings;
 import capstone.abang.com.R;
@@ -52,13 +59,19 @@ public class ProfileFragment extends Fragment {
     private TextView textViewTransactions;
     private LinearLayout linearLayout;
     private Button btnEditProfile;
+    private RecyclerView recyclerView;
     private android.support.v7.widget.Toolbar toolbar;
 
 
     //firebase
     private DatabaseReference myRef;
     private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference recyclerRef;
+    private FirebaseRecyclerAdapter<CDFile, ShowHolder> firebaseRecyclerAdapter;
     private FirebaseAuth mAuth;
+
+    //vars
+    private String uID;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -82,20 +95,48 @@ public class ProfileFragment extends Fragment {
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
+        uID = mAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = firebaseDatabase.getReference();
 
-        linearLayout.setVisibility(View.VISIBLE);
+        //setupfirebase for recyclerView
+        recyclerRef = firebaseDatabase.getReference("CDFile");
+        setupRecyclerView(view);
+        populateRecyclerView();
 
+        linearLayout.setVisibility(View.VISIBLE);
         //setup toolbar
         setupToolbar(view);
         initImageLoader();
+
 
         //retrieve
         retrieveData();
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void populateRecyclerView() {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<CDFile, ShowHolder>
+                (CDFile.class, R.layout.layout_model_cars, ShowHolder.class, recyclerRef) {
+            @Override
+            protected void populateViewHolder(ShowHolder viewHolder, CDFile model, int position) {
+                if(uID.equals(model.getCdowner())) {
+                    viewHolder.setCarName(model.getCDMaker() + " " + model.getCDModel() + " " + model.getCdcaryear());
+                    viewHolder.setCarImage(model.getCDPhoto());
+                }
+            }
+        };
+        recyclerView.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    private void setupRecyclerView(View view) {
+        recyclerView = view.findViewById(R.id.show_data_recycler_view);
+        StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL);
+        mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(mLayoutManager);
     }
 
     private void initImageLoader() {
@@ -164,5 +205,22 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+    }
+
+    public static class ShowHolder extends RecyclerView.ViewHolder {
+        private final TextView carName;
+        private final ImageView carPhoto;
+        public ShowHolder(View itemView) {
+            super(itemView);
+            carName = itemView.findViewById(R.id.textviewcarname);
+            carPhoto = itemView.findViewById(R.id.imageviewcar);
+        }
+
+        private void setCarName(String title) {
+            carName.setText(title);
+        }
+        private void setCarImage(String title) {
+            UniversalImageLoader.setImage(title, carPhoto, null,"");
+        }
     }
 }
