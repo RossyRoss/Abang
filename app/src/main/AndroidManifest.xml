@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,12 +26,8 @@
         <activity android:name=".Register.LoginActivity" />
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".Register.RegisterContinuationActivity" />
-        <activity android:name=".Car_Owner.car_owner">
-
-        </activity>
-        <activity android:name=".Car_Owner.Profile.AccountSettingsActivity" >
-
-        </activity>
+        <activity android:name=".Car_Owner.car_owner" />
+        <activity android:name=".Car_Owner.Profile.AccountSettingsActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -40,6 +37,16 @@
         <activity android:name=".Car_Owner.Endorse.SelectCategory">
             <intent-filter>
                 <action android:name="capstone.abang.com.Car_Owner.Endorse.SelectCategory" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Car_Owner.Endorse.AddDents" />
+        <activity android:name=".Car_Owner.Endorse.BasicDetails" />
+        <activity android:name=".Car_Owner.Endorse.AttachDocuments">
+            <intent-filter>
+                <action android:name="capstone.abang.com.Car_Owner.Endorse.AttachDocuments" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

@@ -78,7 +78,6 @@ public class ProfileFragment extends Fragment {
         textViewContact = view.findViewById(R.id.txtprofileusercontact);
         textViewDateJoined = view.findViewById(R.id.txtprofileuserdatejoined);
         linearLayout = view.findViewById(R.id.loader);
-        btnEditProfile = view.findViewById(R.id.btneditprofile);
 
         //firebase
         mAuth = FirebaseAuth.getInstance();

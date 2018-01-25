@@ -25,6 +25,7 @@
             android:name=".activities.MultiCameraActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MultimagerTheme.NoActionBar"></activity>
+        <activity android:name=".activities.SinglePickActivity"></activity>
     </application>
 
 </manifest>

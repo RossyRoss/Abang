@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.google.firebase.database.ChildEventListener;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,20 +14,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import capstone.abang.com.Car_Owner.Endorse.SelectCategory;
 import capstone.abang.com.Models.CategoryFile;
 
-/**
- * Created by Rylai on 1/19/2018.
- */
-
 public class FirebaseHelper {
+    private static final String TAG = "TAGS";
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference myRef;
+    private DatabaseReference myRefssss;
     private ArrayList<CategoryFile> categories = new ArrayList<>();
+
 
     public FirebaseHelper() {
         firebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = firebaseDatabase.getReference("CategoryFile");
+        myRefssss = firebaseDatabase.getReference("CategoryFile");
     }
 
     public void fetchData(DataSnapshot dataSnapshot) {
@@ -34,6 +34,7 @@ public class FirebaseHelper {
 
                 CategoryFile category = ds.getValue(CategoryFile.class);
                 if(category.getCatStatus().equals("AC")) {
+                    Log.d(TAG, "fetchData: ROSSOSDOOSDSDSDSDSDSD");
                     categories.add(category);
                 }
 
@@ -41,10 +42,13 @@ public class FirebaseHelper {
     }
 
     public ArrayList<CategoryFile> retrieve() {
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRefssss.addValueEventListener(new ValueEventListener() {
+
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 fetchData(dataSnapshot);
+
             }
 
             @Override

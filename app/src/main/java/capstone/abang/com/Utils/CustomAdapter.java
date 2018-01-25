@@ -1,6 +1,7 @@
 package capstone.abang.com.Utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,14 @@ import java.util.ArrayList;
 import capstone.abang.com.Models.CategoryFile;
 import capstone.abang.com.R;
 
-/**
- * Created by Rylai on 1/19/2018.
- */
+
 
 public class CustomAdapter extends BaseAdapter {
+    private static final String TAG = "Custom Adapter";
+
     Context mContext;
     ArrayList<CategoryFile> categories;
+
 
     public CustomAdapter(Context mContext, ArrayList<CategoryFile> categories) {
         this.mContext = mContext;
@@ -50,14 +52,11 @@ public class CustomAdapter extends BaseAdapter {
         TextView textView = view.findViewById(R.id.txtcategoryname);
         final CategoryFile cat = (CategoryFile) this.getItem(i);
         textView.setText(cat.getCatDesc());
+        Log.d(TAG, "getView: HHAHAHAHAHA");
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mContext, cat.getCatCode(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        Log.d(TAG, "getViewasdasdasd: " + view);
         return view;
     }
+
+
 }

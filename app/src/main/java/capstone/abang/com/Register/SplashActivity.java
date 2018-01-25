@@ -32,6 +32,8 @@ public class SplashActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private String userLevel;
+
+    private ValueEventListener myRefListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,8 @@ public class SplashActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
-            myRef.addValueEventListener(new ValueEventListener() {
+
+           myRefListener = myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String userID = user.getUid();
@@ -71,7 +74,9 @@ public class SplashActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 finally {
+                                  //  myRef.removeEventListener(myRefListener);
                                     startActivity(intent);
+
                                     finish();
                                 }
                             }
@@ -88,7 +93,9 @@ public class SplashActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 finally {
+                                 //   myRef.removeEventListener(myRefListener);
                                     startActivity(intent);
+
                                     finish();
                                 }
                             }

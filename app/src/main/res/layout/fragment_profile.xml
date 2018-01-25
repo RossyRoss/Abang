@@ -74,13 +74,6 @@
                             android:id="@+id/txtprofileuserdatejoined"
                             android:text="11/11/17" />
                     </LinearLayout>
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:elevation="10dp"
-                        android:id="@+id/btneditprofile"
-                        android:background="@drawable/edit_profile_btn"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -94,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtprofileuseremail"
-                android:drawableStart="@drawable/email"
+                android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="5dp"
                 android:layout_marginStart="10dp"
                 android:text="useremail@gmail.com"/>
@@ -103,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtprofileusercontact"
-                android:drawableStart="@drawable/contact"
+                android:drawableStart="@drawable/ic_contact"
                 android:drawablePadding="5dp"
                 android:layout_marginStart="10dp"
                 android:text="09123456789"/>
@@ -112,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtprofileuseraddress"
-                android:drawableStart="@drawable/loc"
+                android:drawableStart="@drawable/ic_loc"
                 android:drawablePadding="5dp"
                 android:layout_marginStart="10dp"
                 android:text="Street, Town, City, Province"/>
@@ -123,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtprofileusertransactions"
-                    android:drawableStart="@drawable/transaction"
+                    android:drawableStart="@drawable/ic_transaction"
                     android:drawablePadding="5dp"
                     android:layout_marginStart="10dp"
                     android:text="25"/>
@@ -149,6 +142,6 @@
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:background="#768187"/>
+            android:background="#a7a7a7"/>
     </LinearLayout>
 </FrameLayout>
