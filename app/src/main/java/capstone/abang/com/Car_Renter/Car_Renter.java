@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 
+import capstone.abang.com.Car_Renter.Favourites.FavouritesFragment;
 import capstone.abang.com.Car_Renter.Home.HomeFragment;
 import capstone.abang.com.Car_Renter.Profile.RenterProfileFragment;
 import capstone.abang.com.R;
@@ -28,7 +29,7 @@ public class Car_Renter extends AppCompatActivity {
                     transaction.replace(R.id.container, new HomeFragment()).commit();
                     return true;
                 case R.id.navigation_favourites:
-
+                    transaction.replace(R.id.container, new FavouritesFragment()).commit();
                     return true;
                 case R.id.navigation_map:
 
