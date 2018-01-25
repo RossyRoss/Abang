@@ -29,6 +29,7 @@ public class SplashActivity extends AppCompatActivity {
     //firebase
     private DatabaseReference myRef;
     private FirebaseDatabase firebaseDatabase;
+    private ValueEventListener myRefListener;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private String userLevel;
@@ -47,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
-            myRef.addValueEventListener(new ValueEventListener() {
+            myRefListener = myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String userID = user.getUid();
@@ -72,6 +73,7 @@ public class SplashActivity extends AppCompatActivity {
                                 }
                                 finally {
                                     startActivity(intent);
+                                    myRef.removeEventListener(myRefListener);
                                     finish();
                                 }
                             }
@@ -89,6 +91,7 @@ public class SplashActivity extends AppCompatActivity {
                                 }
                                 finally {
                                     startActivity(intent);
+                                    myRef.removeEventListener(myRefListener);
                                     finish();
                                 }
                             }
@@ -120,7 +123,5 @@ public class SplashActivity extends AppCompatActivity {
             };
             timer.start();
         }
-
-
     }
 }

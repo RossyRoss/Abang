@@ -9,16 +9,26 @@ public class UHFile {
     private String UHUsername;
     private String UHPassword;
     private String UHStatus;
+    private String uhdatecreated;
+
+    public String getUHDateCreated() {
+        return uhdatecreated;
+    }
+
+    public void setUHDateCreated(String UHDateCreated) {
+        this.uhdatecreated = UHDateCreated;
+    }
 
     public UHFile() {
 
     }
 
-    public UHFile(String UHUsercode, String UHUsername, String UHPassword, String UHStatus) {
+    public UHFile(String UHUsercode, String UHUsername, String UHPassword, String UHStatus, String uhdatecreated) {
         this.UHUsercode = UHUsercode;
         this.UHUsername = UHUsername;
         this.UHPassword = UHPassword;
         this.UHStatus = UHStatus;
+        this.uhdatecreated = uhdatecreated;
     }
 
     public String getUHUsercode() {

@@ -59,22 +59,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#c8cbcc"/>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/favourites"
-                    android:id="@+id/imageviewfavourites"
+                    android:src="@drawable/ic_white_heart"
+                    android:id="@+id/imgviewwhiteheart"
+                    android:padding="1dp"
+                    android:layout_marginStart="5dp"/>
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_red_heart"
+                    android:id="@+id/imgviewredheart"
                     android:padding="1dp"
                     android:layout_marginStart="5dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textviewfavourites"
-                    android:text="1"/>
-            </LinearLayout>
+                    android:text="1"
+                    android:layout_marginStart="30dp"/>
+            </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

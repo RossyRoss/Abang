@@ -1,5 +1,9 @@
 package capstone.abang.com.Models;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Pc-user on 21/01/2018.
  */
@@ -19,12 +23,13 @@ public class CDFile {
     private String cdowner;
     private String cdstatus;
     private long cdrentrate;
+    private Map<String, Like> likes = new HashMap<String, Like>();
 
     public CDFile() {
 
     }
 
-    public CDFile(String CDCode, String CDModel, long cdcaryear, String CDMaker, String cdchassisno, String CDPhoto, int CDCapacity, String CDTransmission, String cdplateno, String cdengineno, String cdcatcode, String cdowner, String cdstatus, long cdrentrate) {
+    public CDFile(String CDCode, String CDModel, long cdcaryear, String CDMaker, String cdchassisno, String CDPhoto, int CDCapacity, String CDTransmission, String cdplateno, String cdengineno, String cdcatcode, String cdowner, String cdstatus, long cdrentrate, Map<String, Like> likes) {
         this.CDCode = CDCode;
         this.CDModel = CDModel;
         this.cdcaryear = cdcaryear;
@@ -39,6 +44,7 @@ public class CDFile {
         this.cdowner = cdowner;
         this.cdstatus = cdstatus;
         this.cdrentrate = cdrentrate;
+        this.likes = likes;
     }
 
     public String getCDCode() {
@@ -151,5 +157,13 @@ public class CDFile {
 
     public void setCdrentrate(long cdrentrate) {
         this.cdrentrate = cdrentrate;
+    }
+
+    public Map<String, Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Map<String, Like> likes) {
+        this.likes = likes;
     }
 }

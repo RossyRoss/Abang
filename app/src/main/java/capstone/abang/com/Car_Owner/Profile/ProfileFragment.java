@@ -58,7 +58,6 @@ public class ProfileFragment extends Fragment {
     private TextView textViewAddress;
     private TextView textViewTransactions;
     private LinearLayout linearLayout;
-    private Button btnEditProfile;
     private RecyclerView recyclerView;
     private android.support.v7.widget.Toolbar toolbar;
 
@@ -91,7 +90,6 @@ public class ProfileFragment extends Fragment {
         textViewContact = view.findViewById(R.id.txtprofileusercontact);
         textViewDateJoined = view.findViewById(R.id.txtprofileuserdatejoined);
         linearLayout = view.findViewById(R.id.loader);
-        btnEditProfile = view.findViewById(R.id.btneditprofile);
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
@@ -168,6 +166,7 @@ public class ProfileFragment extends Fragment {
         linearLayout.setVisibility(View.GONE);
         UniversalImageLoader.setImage(udFile.getUDImageNbi(), imgViewProfilePicture, null, "");
         imgViewProfilePicture.setBackgroundResource(0);
+        textViewDateJoined.setText(uhFile.getUHDateCreated());
     }
 
     public void retrieveData() {

@@ -74,13 +74,6 @@
                             android:id="@+id/txtprofileuserdatejoined"
                             android:text="11/11/17" />
                     </LinearLayout>
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:elevation="10dp"
-                        android:id="@+id/btneditprofile"
-                        android:background="@drawable/edit_profile_btn"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
