@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -124,6 +125,9 @@ public class ProfileFragment extends Fragment {
                     viewHolder.setCarName(model.getCDMaker() + " " + model.getCDModel() + " " + model.getCdcaryear());
                     viewHolder.setCarImage(model.getCDPhoto());
                 }
+                else {
+                    viewHolder.cardView.setVisibility(View.GONE);
+                }
             }
         };
         recyclerView.setAdapter(firebaseRecyclerAdapter);
@@ -209,10 +213,12 @@ public class ProfileFragment extends Fragment {
     public static class ShowHolder extends RecyclerView.ViewHolder {
         private final TextView carName;
         private final ImageView carPhoto;
+        private final CardView cardView;
         public ShowHolder(View itemView) {
             super(itemView);
             carName = itemView.findViewById(R.id.textviewcarname);
             carPhoto = itemView.findViewById(R.id.imageviewcar);
+            cardView = itemView.findViewById(R.id.cardviewcars);
         }
 
         private void setCarName(String title) {
