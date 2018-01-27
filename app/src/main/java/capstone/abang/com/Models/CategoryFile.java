@@ -10,6 +10,7 @@ public class CategoryFile {
     private String CatImage;
     private String CatStatus;
 
+
     public CategoryFile(){
 
     }
