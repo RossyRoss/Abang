@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,6 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import capstone.abang.com.Car_Owner.Profile.AccountSettingsActivity;
 import capstone.abang.com.Models.UDFile;
@@ -62,6 +67,8 @@ public class RenterProfileFragment extends Fragment {
         textViewContact = view.findViewById(R.id.txtprofileusercontact);
         textViewDateJoined = view.findViewById(R.id.txtprofileuserdatejoined);
         linearLayout = view.findViewById(R.id.loader);
+
+
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
@@ -107,6 +114,7 @@ public class RenterProfileFragment extends Fragment {
         textViewAddress.setText(udFile.getUDAddr());
         textViewContact.setText(udFile.getUDContact());
         textViewEmail.setText(udFile.getUDEmail());
+        textViewDateJoined.setText(uhFile.getUHDateCreated());
         linearLayout.setVisibility(View.GONE);
         UniversalImageLoader.setImage(udFile.getUDImageProfile(), imgViewProfilePicture, null, "");
         imgViewProfilePicture.setBackgroundResource(0);

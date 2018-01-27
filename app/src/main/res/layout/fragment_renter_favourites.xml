@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginBottom="?attr/actionBarSize">
-    <include layout="@layout/layout_toolbar_renter_home" />
-    <include layout="@layout/snippet_center_renter_homefragment"  />
+    <include layout="@layout/layout_toolbar_renter_favouritesfragment" />
+    <include layout="@layout/snippet_center_renter_favouritesfragment"  />
 
 </LinearLayout>

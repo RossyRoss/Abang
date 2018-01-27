@@ -37,7 +37,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import capstone.abang.com.Car_Owner.car_owner;
 import capstone.abang.com.Car_Renter.Car_Renter;
@@ -72,6 +75,7 @@ public class RegisterContinuationActivity extends AppCompatActivity {
     private String profileImage;
     private String nbiImage;
     private String secondaryImage;
+    private String date = null;
 
     //Responsible for photos
     private String userChoosenTask;
@@ -274,6 +278,8 @@ public class RegisterContinuationActivity extends AppCompatActivity {
             contact = bundle.getString("contact");
             String holderImage = bundle.getString("image");
             image = Uri.parse(holderImage);
+            date = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date());
+
 
 
 
@@ -297,7 +303,7 @@ public class RegisterContinuationActivity extends AppCompatActivity {
                             final String id = user.getUid();
 
                             //Insert data to UHFile
-                            UHFile newUserHeader = new UHFile(id, username, pass, "AC");
+                            UHFile newUserHeader = new UHFile(id, username, pass, "AC", date);
                             mDatabaseUserHeader.child(id).setValue(newUserHeader);
                             final StorageReference myRef = mStorage.child(id).child(holder1.getLastPathSegment());
                             myRef.putFile(holder1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
